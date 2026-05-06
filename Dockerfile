@@ -2,11 +2,16 @@ FROM node:20-alpine
 
 WORKDIR /app
 
-COPY package*.json ./
-RUN npm ci --only=production
+RUN corepack enable
 
-COPY dist ./dist
-COPY .env ./
+COPY package.json pnpm-lock.yaml ./
+
+RUN pnpm install --frozen-lockfile
+
+COPY tsconfig.json ./
+COPY server.ts ./
+
+RUN pnpm build
 
 EXPOSE 3000
 
