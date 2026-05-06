@@ -1,0 +1,5 @@
+# Never commit .env to git!
+.env
+node_modules/
+dist/
+*.log
